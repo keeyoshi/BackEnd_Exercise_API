@@ -1,0 +1,8 @@
+db.tasks.insert({name: "Buy grapes"});
+
+db.tasks.find();
+db.tasks.deleteone({name:"buy grapes"});
+
+db.users.insert({name:"Ram",Age:"20",Adressess:["ktm","bkt","pohkara"]});
+
+

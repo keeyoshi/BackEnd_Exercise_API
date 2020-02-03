@@ -1,31 +1,30 @@
 const express=require('express');
 const router=express.Router();
 
-router.get('/',(req ,res, next)=>{
+router.get('/',(req,res, next)=>{
     res.status(200).json({
-        message:'Chapter were geted'
+        message:'chapter got'
     });
 });
 
-router.post('/',(req ,res, next)=>{
+router.post('/',(req,res, next)=>{
     res.status(201).json({
-        message:'Chapter were added'
+        message:'chapter created'
     });
 });
 
-router.get('/:chapterId',(req,res,next)=>{
-        res.status(200).json({
-            message:'Special Chapter',
-            chapterid:res.params.chapteridid
-        });
-});
-
-router.delete('/:chapterId',(req,res,next)=>{
+router.get('/:chapterId',(req,res, next)=>{
     res.status(200).json({
-        message:'deleted Chapter',
-        chapterid:res.params.chapteridid
+        message:'chapter id',
+        chapterId:req.params.chapterId
     });
 });
 
+router.delete('/:chapterId',(req,res, next)=>{
+    res.status(200).json({
+        message:'chapter deleted',
+        chapterId:req.params.chapterId
+    });
+});
 
 module.exports=router;

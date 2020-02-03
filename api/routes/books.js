@@ -3,42 +3,40 @@ const router=express.Router();
 
 router.get('/',(req,res,next)=>{
     res.status(200).json({
-        message:'Handling Get request books'
+        message:'handling get request books'
     });
 });
 
 router.post('/',(req,res,next)=>{
-    res.status(201).json({
-        message:'Handling Post request books'
+    res.status(200).json({
+        message:'handling post request books'
     });
 });
 
-router.get('/:bookId',(req,res,next)=>{
+router.get('/:bookId',(req, res, next)=>{
     const id=req.params.bookId;
     if(id=='special'){
         res.status(200).json({
-            message:'Special Book',
+            message:'Special Id',
             id:id
         });
-    } else{
+    }else{
         res.status(200).json({
-            msessage:'You passed an ID'
+            message:'failed'
         });
     }
 });
 
-router.patch('/:bookId',(req,res,next)=>{
-    res.status(200).json({
-        message:'update'
-    });
+router.patch('/:bookId',(req, res, next)=>{
+        res.status(200).json({
+            message:'updated'
+        });
 });
 
-
-router.delete('/:bookId',(req,res,next)=>{
-    res.status(200).json({
+router.delete('/:bookId',(req, res, next)=>{
+    res.status(201).json({
         message:'deleted'
     });
 });
-
 
 module.exports=router;

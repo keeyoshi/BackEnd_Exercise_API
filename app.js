@@ -6,6 +6,7 @@ const mongoose=require('mongoose');
 
 const bookRoutes=require('./routes/books');
 const chapterRoutes=require('./routes/chapters');
+const userRoutes=require('./routes/user');
 
 mongoose.connect(
     'mongodb+srv://keeyoshi:'+
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 
 app.use('/books',bookRoutes);
 app.use('/chapters',chapterRoutes);
+app.use('/user',userRoutes);
 
 app.use((req,res,next)=>{
     const error=new Error('Not Found');;

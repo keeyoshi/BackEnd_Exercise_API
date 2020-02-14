@@ -1,12 +1,39 @@
 const express=require('express');
 const router=express.Router();
 const mongoose=require('mongoose');
+const multer=require('multer');
+
+const storage=multer.diskStorage({
+destination:function(req,file,cb){
+cb(null,'./uploads/');
+},
+filename: function(req,file,cb){
+cb(null,Date.now()+file.originalname);
+}
+});
+
+const fileFilter=(req,file,cb)=>{
+if(file.mimetype==='image/jpeg'|| file.mimetype==='image/png')
+{cb(null,true);
+}else
+{cb(null,false);}
+};
+
+const upload=multer({
+    storage:storage, 
+    limits:{
+        fileSize:1024 *1024 *5
+        },
+        fileFilter:fileFilter
+});
 
 const Book=require('../models/book');
 
+
+
 router.get('/',(req,res,next)=>{
    Book.find()
-   .select('name author _id')
+   .select('name author _id bookImage')
    .exec()
    .then(docs=>{
        const response={
@@ -15,6 +42,7 @@ router.get('/',(req,res,next)=>{
                return{
                    name:doc.name,
                    author:doc.author,
+                   bookImage:doc.bookImage,
                    _id:doc._id,
                    request:{
                        type:'GET',
@@ -33,11 +61,13 @@ console.log(err);
    });
 });
 
-router.post('/',(req,res,next)=>{
-   const book=new Book({
+router.post('/',upload.single('bookImage'),(req,res,next)=>{
+    console.log(req.file);
+    const book=new Book({
     _id:new mongoose.Types.ObjectId(),
     name:req.body.name,
-    author:req.body.author
+    author:req.body.author,
+    bookImage:req.file.path
    });
    book.save()
    .then(result=>{
@@ -65,7 +95,7 @@ router.post('/',(req,res,next)=>{
 router.get('/:bookId',(req,res,next)=>{
     const id=req.params.bookId;
     Book.findById(id)
-    .select('name author _id')
+    .select('name author _id bookImage')
     .exec()
     .then(doc=>{
         console.log("From database",doc);

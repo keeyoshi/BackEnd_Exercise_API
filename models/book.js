@@ -9,6 +9,10 @@ const bookSchema=mongoose.Schema({
     author:{
         type:String,
         required:true
+    },
+    bookImage:{
+        type:String,
+        required:true
     }
 });
 

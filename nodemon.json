@@ -1,6 +1,0 @@
-{
-    "env":{
-        "MONGO_ATLAST_PW":"abcde000",
-        "JWT_KEY":"secret"
-    }
-}
